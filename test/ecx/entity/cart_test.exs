@@ -2,27 +2,33 @@ defmodule Ecx.Entity.CartTest do
   use ExUnit.Case
   doctest Ecx
 
-  alias Ecx.Entity.{Cart, CartItem, Product}
+  alias Ecx.Entity.{Cart, CartItem, Product, User, Wallet}
   require IEx
 
-  test "newはカートを作成する" do
-    cart = Cart.new()
+  setup do
+    user = User.new("alice", "alice@mail.com")
+    wallet = Wallet.new(user)
+    {:ok, user: user, wallet: wallet}
+  end
+
+  test "newはカートを作成する", state do
+    cart = Cart.new(state[:user])
     assert cart.items == []
   end
 
-  test "newはカート内の商品を受け取って新しいカートを作成する" do
+  test "newはカート内の商品を受け取って新しいカートを作成する", state do
     items = [
       CartItem.new(Product.new("product1", 1000), 1),
       CartItem.new(Product.new("product2", 3000), 3)
     ]
 
-    cart = Cart.new(items)
+    cart = Cart.new(state[:user], items)
     assert cart.items == items
   end
 
-  test "addはカートと商品とカートに入れる商品数量を受け取り、新しいカートを返す" do
+  test "addはカートと商品とカートに入れる商品数量を受け取り、新しいカートを返す", state do
     product = Product.new("product1", 1000)
-    cart = Cart.new()
+    cart = Cart.new(state[:user])
     quantity = 3
     {:ok, updated_cart} = Cart.add(cart, product, quantity)
     assert updated_cart.items |> length == 1
@@ -31,10 +37,10 @@ defmodule Ecx.Entity.CartTest do
     assert item |> Map.get(:product) == product
   end
 
-  test "addはカートに同じ商品が既に入っている場合、引数の数量を加算する" do
+  test "addはカートに同じ商品が既に入っている場合、引数の数量を加算する", state do
     product = Product.new("product1", 1000)
     default_quantity = 1
-    cart = Cart.new([CartItem.new(product, default_quantity)])
+    cart = Cart.new(state[:user], [CartItem.new(product, default_quantity)])
     add_quantity = 3
     {:ok, updated_cart} = Cart.add(cart, product, add_quantity)
     assert updated_cart.items |> length == 1
@@ -43,10 +49,10 @@ defmodule Ecx.Entity.CartTest do
     assert item |> Map.get(:product) == product
   end
 
-  test "subはカート内の商品数を引数の数量分減算する" do
+  test "subはカート内の商品数を引数の数量分減算する", state do
     product = Product.new("product1", 1000)
     default_quantity = 3
-    cart = Cart.new([CartItem.new(product, default_quantity)])
+    cart = Cart.new(state[:user], [CartItem.new(product, default_quantity)])
     sub_quantity = 2
     {:ok, updated_cart} = Cart.sub(cart, product, sub_quantity)
     assert updated_cart.items |> length == 1
@@ -55,10 +61,10 @@ defmodule Ecx.Entity.CartTest do
     assert item |> Map.get(:product) == product
   end
 
-  test "subはカート内の商品数以上の数量を減算できない" do
+  test "subはカート内の商品数以上の数量を減算できない", state do
     product = Product.new("product1", 1000)
     default_quantity = 3
-    cart = Cart.new([CartItem.new(product, default_quantity)])
+    cart = Cart.new(state[:user], [CartItem.new(product, default_quantity)])
     sub_quantity = default_quantity + 1
     {:failed, updated_cart} = Cart.sub(cart, product, sub_quantity)
     assert updated_cart.items |> length == 1
@@ -67,16 +73,37 @@ defmodule Ecx.Entity.CartTest do
     assert item |> Map.get(:product) == product
   end
 
-  test "calc_priceはカート内の商品の合計金額を計算する" do
+  test "calc_priceはカート内の商品の合計金額を計算する", state do
     product1 = Product.new("product1", 1000)
     product2 = Product.new("product2", 3000)
 
     cart =
-      Cart.new([
+      Cart.new(state[:user], [
         CartItem.new(product1, 1),
         CartItem.new(product2, 3)
       ])
 
     assert Cart.calc_price(cart) == 10000
+  end
+
+  test "checkoutはカートを受け取りカート内の商品の合計金額をユーザのWalletに請求する", state do
+    user = state[:user]
+
+    product1 = Product.new("product1", 1000)
+    product2 = Product.new("product2", 3000)
+
+    cart =
+      Cart.new(user, [
+        CartItem.new(product1, 1),
+        CartItem.new(product2, 3)
+      ])
+
+    total_price = Cart.calc_price(cart)
+
+    wallet = state[:wallet]
+    {:ok, new_wallet} = Cart.checkout(cart, wallet)
+    assert new_wallet.balance == total_price * -1
+    assert new_wallet.transactions |> length == 1
+    assert new_wallet.transactions |> List.first() |> Map.get(:amount) == total_price * -1
   end
 end

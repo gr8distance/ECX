@@ -1,20 +1,21 @@
 defmodule Ecx.Entity.Cart do
-  alias Ecx.Entity.{CartItem, Product}
+  alias Ecx.Entity.{CartItem, Product, User, Wallet}
 
   @type t :: %__MODULE__{id: String.t(), items: [CartItem.t()]}
-  defstruct id: "", items: []
+  defstruct id: "", user: %User{}, items: []
 
-  @spec new() :: t
-  def new() do
+  @spec new(User.t()) :: t
+  def new(user) do
     %__MODULE__{
       id: UUID.uuid4(),
+      user: user,
       items: []
     }
   end
 
-  @spec new([CartItem.t()]) :: t
-  def new(items) do
-    %__MODULE__{items: items}
+  @spec new(User.t(), [CartItem.t()]) :: t
+  def new(user, items) do
+    %__MODULE__{id: UUID.uuid4(), user: user, items: items}
   end
 
   @spec add(t, Product.t(), integer) :: {:ok, t}
@@ -44,6 +45,11 @@ defmodule Ecx.Entity.Cart do
     |> Enum.sum()
   end
 
+  def checkout(cart, wallet) do
+    total_price = calc_price(cart) * -1
+    {:ok, Wallet.add_transaction(wallet, total_price)}
+  end
+
   @spec update_quantity(t, Product.t(), integer) :: {:failed, t}
   defp update_quantity(cart, _product, quantity) when quantity <= 0 do
     make_failed_response(cart)
@@ -51,17 +57,21 @@ defmodule Ecx.Entity.Cart do
 
   @spec update_quantity(t, Product.t(), integer) :: {:ok, t}
   defp update_quantity(cart, product, quantity) do
-    cart.items
-    |> Enum.reject(fn item -> item.product == product end)
-    |> new()
+    items =
+      cart.items
+      |> Enum.reject(fn item -> item.product == product end)
+
+    new(cart.user, items)
     |> add_new(product, quantity)
   end
 
   @spec add_new(t, Product.t(), integer) :: {:ok, t}
   defp add_new(cart, product, quantity) do
-    cart.items
-    |> Kernel.++([create_item(product, quantity)])
-    |> new()
+    items =
+      cart.items
+      |> Kernel.++([create_item(product, quantity)])
+
+    new(cart.user, items)
     |> make_success_response()
   end
 
