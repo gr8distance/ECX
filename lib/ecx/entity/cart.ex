@@ -45,6 +45,7 @@ defmodule Ecx.Entity.Cart do
     |> Enum.sum()
   end
 
+  # NOTE: checkoutの処理はUseCaseに切り出した方が良いかも
   def checkout(cart, wallet) do
     total_price = calc_price(cart) * -1
     {:ok, Wallet.add_transaction(wallet, total_price)}

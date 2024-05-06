@@ -86,6 +86,7 @@ defmodule Ecx.Entity.CartTest do
     assert Cart.calc_price(cart) == 10000
   end
 
+  # NOTE: checkoutの処理はUseCaseに切り出した方が良いかも
   test "checkoutはカートを受け取りカート内の商品の合計金額をユーザのWalletに請求する", state do
     user = state[:user]
 
