@@ -1,5 +1,5 @@
 defmodule Ecx.Entity.Cart do
-  alias Ecx.Entity.{CartItem, Product, User, Wallet}
+  alias Ecx.Entity.{Cart, CartItem, Product, User, Wallet, Order, OrderItem}
 
   @type t :: %__MODULE__{id: String.t(), items: [CartItem.t()]}
   defstruct id: "", user: %User{}, items: []
@@ -46,9 +46,15 @@ defmodule Ecx.Entity.Cart do
   end
 
   # NOTE: checkoutの処理はUseCaseに切り出した方が良いかも
+  @spec checkout(Cart.t(), Wallet.t()) :: {:ok, Wallet.t()}
   def checkout(cart, wallet) do
     total_price = calc_price(cart) * -1
     {:ok, Wallet.add_transaction(wallet, total_price)}
+  end
+
+  @spec to_order(Cart.t()) :: Order.t()
+  def to_order(cart) do
+    Order.new(cart)
   end
 
   @spec update_quantity(t, Product.t(), integer) :: {:failed, t}

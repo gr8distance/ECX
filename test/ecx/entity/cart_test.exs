@@ -107,4 +107,27 @@ defmodule Ecx.Entity.CartTest do
     assert new_wallet.transactions |> length == 1
     assert new_wallet.transactions |> List.first() |> Map.get(:amount) == total_price * -1
   end
+
+  test "to_orderはカートを受け取りorderEntityを返す", state do
+    user = state[:user]
+    product1 = Product.new("product1", 1000)
+    product2 = Product.new("product2", 3000)
+
+    cart =
+      Cart.new(user, [
+        CartItem.new(product1, 1),
+        CartItem.new(product2, 3)
+      ])
+
+    order = Cart.to_order(cart)
+    assert order.user == user
+    assert order.items |> length == 2
+    assert order.price == Cart.calc_price(cart)
+
+    order.items
+    |> Enum.zip([product1, product2])
+    |> Enum.each(fn {item, product} ->
+      assert item.product == product
+    end)
+  end
 end
