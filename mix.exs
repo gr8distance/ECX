@@ -23,7 +23,8 @@ defmodule Ecx.MixProject do
     [
       {:uuid, "~> 1.1"},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:timex, "~> 3.0"}
     ]
   end
 end
