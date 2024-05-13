@@ -1,33 +1,33 @@
 defmodule Ecx.Entity.Product do
-  alias Ecx.Entity.{Category, Tag}
+  alias Ecx.Entity.{Tag, ProductMaster}
 
   @type t :: %__MODULE__{
           id: String.t(),
           name: String.t(),
           price: integer(),
-          categories: [Category.t()],
-          tags: [Tag.t()]
+          tags: [Tag.t()],
+          master: ProductMaster.t()
         }
-  defstruct id: "", name: "", price: 0, categories: [], tags: []
+  defstruct id: "", name: "", price: 0, tags: [], master: %ProductMaster{}
 
-  @spec new(String.t(), integer()) :: t
-  def new(name, price) do
+  @spec new(String.t(), integer(), ProductMaster.t()) :: t
+  def new(name, price, master) do
     %__MODULE__{
       id: UUID.uuid4(),
       name: name,
       price: price,
-      categories: [],
+      master: master,
       tags: []
     }
   end
 
-  @spec new(String.t(), integer(), [Category.t()], [Tag.t()]) :: t
-  def new(name, price, categories, tags) do
+  @spec new(String.t(), integer(), ProductMaster.t(), [Tag.t()]) :: t
+  def new(name, price, master, tags) do
     %__MODULE__{
       id: UUID.uuid4(),
       name: name,
       price: price,
-      categories: categories,
+      master: master,
       tags: tags
     }
   end
