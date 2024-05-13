@@ -1,7 +1,11 @@
 defmodule Ecx.Entity.Order do
   alias Ecx.Entity.{OrderItem, User, Cart}
 
-  @type t :: %__MODULE__{id: String.t(), items: [OrderItem.t()], price: integer}
+  @type t :: %__MODULE__{
+          id: String.t(),
+          items: [OrderItem.t()],
+          price: integer
+        }
   defstruct id: "", user: %User{}, items: [], price: 0
 
   @spec new(Cart.t()) :: t
