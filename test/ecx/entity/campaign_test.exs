@@ -2,12 +2,13 @@ defmodule Ecx.Entity.CampaignTest do
   use ExUnit.Case
   doctest Ecx
 
-  alias Ecx.Entity.{Campaign, Product}
+  alias Ecx.Entity.{Campaign, Product, ProductMaster}
   alias Ecx.Entity.CampaignUsable.IncludeProduct
   require IEx
 
   test "newはキャンペーンを作成する" do
-    product = Product.new("商品", 1000)
+    master = ProductMaster.new("master", "説明")
+    product = Product.new("商品", 1000, master)
 
     conditions = [
       %IncludeProduct{products: [product]}
