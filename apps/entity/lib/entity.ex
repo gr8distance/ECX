@@ -1,6 +1,6 @@
-defmodule Ecx do
+defmodule Entity do
   @moduledoc """
-  Documentation for `Ecx`.
+  Documentation for `Entity`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Ecx do
 
   ## Examples
 
-      iex> Ecx.hello()
+      iex> Entity.hello()
       :world
 
   """
