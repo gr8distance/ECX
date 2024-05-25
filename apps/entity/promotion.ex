@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Promotion do
+defmodule Entity.Promotion do
   alias Ecx.Entity.Campaign
 
   @type t :: %__MODULE__{

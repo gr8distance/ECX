@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Order do
+defmodule Entity.Order do
   alias Ecx.Entity.{OrderItem, User, Cart}
 
   @type t :: %__MODULE__{

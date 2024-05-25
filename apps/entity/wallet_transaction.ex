@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.WalletTransaction do
+defmodule Entity.WalletTransaction do
   alias Ecx.Entity.{User}
 
   @type t :: %__MODULE__{

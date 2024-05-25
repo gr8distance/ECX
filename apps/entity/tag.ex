@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Tag do
+defmodule Entity.Tag do
   @type t :: %__MODULE__{name: String.t()}
   defstruct name: ""
 

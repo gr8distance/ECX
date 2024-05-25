@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.CartItem do
+defmodule Entity.CartItem do
   alias Ecx.Entity.Product
 
   @type t :: %__MODULE__{product: Product.t(), quantity: integer, price: integer}

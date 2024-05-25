@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.User do
+defmodule Entity.User do
   @type t :: %__MODULE__{id: String.t(), name: String.t(), email: String.t()}
   defstruct id: "", name: "", email: ""
 

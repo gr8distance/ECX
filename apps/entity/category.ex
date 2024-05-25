@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Category do
+defmodule Entity.Category do
   @type t :: %__MODULE__{name: String.t(), description: String.t()}
   defstruct name: "", description: ""
 

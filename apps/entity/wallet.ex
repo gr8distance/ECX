@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Wallet do
+defmodule Entity.Wallet do
   alias Ecx.Entity.{User, WalletTransaction}
   require IEx
 

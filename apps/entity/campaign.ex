@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.Campaign do
+defmodule Entity.Campaign do
   @type t :: %__MODULE__{
           name: String.t(),
           description: String.t(),

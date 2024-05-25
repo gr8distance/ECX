@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.PaymentMethod do
+defmodule Entity.PaymentMethod do
   @type t :: %__MODULE__{
           id: String.t(),
           name: String.t(),

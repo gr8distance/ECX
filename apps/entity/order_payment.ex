@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.OrderPayment do
+defmodule Entity.OrderPayment do
   alias Ecx.Entity.{Order, PaymentMethod}
 
   @type t :: %__MODULE__{

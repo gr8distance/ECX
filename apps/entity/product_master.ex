@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.ProductMaster do
+defmodule Entity.ProductMaster do
   alias Ecx.Entity.{Category, Product}
 
   @type t :: %__MODULE__{

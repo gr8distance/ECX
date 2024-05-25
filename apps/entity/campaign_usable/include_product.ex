@@ -1,4 +1,4 @@
-defmodule Ecx.Entity.CampaignUsable.IncludeProduct do
+defmodule Entity.CampaignUsable.IncludeProduct do
   alias Ecx.Entity.{User, Product}
 
   @type t :: %__MODULE__{products: [Product.t()]}
