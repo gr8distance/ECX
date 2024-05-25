@@ -1,5 +1,5 @@
 defmodule Entity.ProductMaster do
-  alias Ecx.Entity.{Category, Product}
+  alias Entity.{Category, Product}
 
   @type t :: %__MODULE__{
           id: String.t(),

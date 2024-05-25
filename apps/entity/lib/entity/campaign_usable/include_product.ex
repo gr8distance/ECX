@@ -1,13 +1,13 @@
 defmodule Entity.CampaignUsable.IncludeProduct do
-  alias Ecx.Entity.{User, Product}
+  alias Entity.{User, Product}
 
   @type t :: %__MODULE__{products: [Product.t()]}
   defstruct products: []
 end
 
-defimpl Ecx.Entity.CampaignUsable, for: Ecx.Entity.CampaignUsable.IncludeProduct do
-  alias Ecx.Entity.CampaignUsable.IncludeProduct
-  alias Ecx.Entity.{Cart, User}
+defimpl Entity.CampaignUsable, for: Entity.CampaignUsable.IncludeProduct do
+  alias Entity.CampaignUsable.IncludeProduct
+  alias Entity.{Cart, User}
 
   @spec usable?(IncludeProduct.t(), Cart.t(), User.t()) :: boolean
   def usable?(condition, cart, _user) do

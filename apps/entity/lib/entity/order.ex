@@ -1,5 +1,5 @@
 defmodule Entity.Order do
-  alias Ecx.Entity.{OrderItem, User, Cart}
+  alias Entity.{OrderItem, User, Cart}
 
   @type t :: %__MODULE__{
           id: String.t(),

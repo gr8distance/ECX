@@ -1,5 +1,5 @@
 defmodule Entity.WalletTransaction do
-  alias Ecx.Entity.{User}
+  alias Entity.{User}
 
   @type t :: %__MODULE__{
           id: String.t(),

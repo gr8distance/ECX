@@ -1,5 +1,5 @@
 defmodule Entity.Cart do
-  alias Ecx.Entity.{Cart, CartItem, Product, User, Wallet, Order}
+  alias Entity.{Cart, CartItem, Product, User, Wallet, Order}
 
   @type t :: %__MODULE__{id: String.t(), items: [CartItem.t()]}
   defstruct id: "", user: %User{}, items: []

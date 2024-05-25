@@ -16,6 +16,11 @@ defmodule Ecx.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      {:uuid, "~> 1.1"},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:timex, "~> 3.7.1"}
+    ]
   end
 end

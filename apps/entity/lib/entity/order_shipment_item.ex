@@ -1,5 +1,5 @@
 defmodule Entity.OrderShipmentItem do
-  alias Ecx.Entity.{OrderItem}
+  alias Entity.{OrderItem}
 
   @type t :: %__MODULE__{
           id: String.t(),

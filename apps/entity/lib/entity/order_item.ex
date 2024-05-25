@@ -1,5 +1,5 @@
 defmodule Entity.OrderItem do
-  alias Ecx.Entity.Product
+  alias Entity.Product
 
   @type t :: %__MODULE__{product: Product.t(), quantity: integer, price: integer}
   defstruct product: nil, quantity: 0, price: 0

@@ -1,9 +1,8 @@
-defmodule Ecx.Entity.CampaignTest do
+defmodule Entity.CampaignTest do
   use ExUnit.Case
-  doctest Ecx
 
-  alias Ecx.Entity.{Campaign, Product, ProductMaster}
-  alias Ecx.Entity.CampaignUsable.IncludeProduct
+  alias Entity.{Campaign, Product, ProductMaster}
+  alias Entity.CampaignUsable.IncludeProduct
   require IEx
 
   test "newはキャンペーンを作成する" do

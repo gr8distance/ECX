@@ -1,5 +1,5 @@
 defmodule Entity.Wallet do
-  alias Ecx.Entity.{User, WalletTransaction}
+  alias Entity.{User, WalletTransaction}
   require IEx
 
   @type t :: %__MODULE__{

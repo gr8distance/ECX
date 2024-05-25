@@ -1,8 +1,7 @@
-defmodule Ecx.Entity.WalletTest do
+defmodule Entity.WalletTest do
   use ExUnit.Case
-  doctest Ecx
 
-  alias Ecx.Entity.{Wallet, User}
+  alias Entity.{Wallet, User}
   require IEx
 
   setup do

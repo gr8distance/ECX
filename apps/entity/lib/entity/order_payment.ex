@@ -1,5 +1,5 @@
 defmodule Entity.OrderPayment do
-  alias Ecx.Entity.{Order, PaymentMethod}
+  alias Entity.{Order, PaymentMethod}
 
   @type t :: %__MODULE__{
           id: String.t(),

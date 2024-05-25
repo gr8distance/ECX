@@ -1,5 +1,5 @@
 defmodule Entity.Promotion do
-  alias Ecx.Entity.Campaign
+  alias Entity.Campaign
 
   @type t :: %__MODULE__{
           name: String.t(),

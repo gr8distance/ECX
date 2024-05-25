@@ -1,8 +1,7 @@
-defmodule Ecx.Entity.PromotionTest do
+defmodule Entity.PromotionTest do
   use ExUnit.Case
-  doctest Ecx
 
-  alias Ecx.Entity.{Promotion}
+  alias Entity.{Promotion}
   require IEx
 
   test "newはPromotionEntityを作成する" do

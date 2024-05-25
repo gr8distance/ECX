@@ -1,8 +1,7 @@
-defmodule Ecx.Entity.CartTest do
+defmodule Entity.CartTest do
   use ExUnit.Case
-  doctest Ecx
 
-  alias Ecx.Entity.{Cart, CartItem, Product, ProductMaster, User, Wallet}
+  alias Entity.{Cart, CartItem, Product, ProductMaster, User, Wallet}
   require IEx
 
   setup do
